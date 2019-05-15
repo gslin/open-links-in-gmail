@@ -10,7 +10,7 @@
 // @grant        GM_openInTab
 // @grant        GM_registerMenuCommand
 // @grant        GM_setValue
-// @require      https://raw.githubusercontent.com/odyniec/MonkeyConfig/master/monkeyconfig.js
+// @require      https://greasyfork.org/scripts/38445-monkeyconfig/code/MonkeyConfig.js?version=251319
 // @license      MIT
 // ==/UserScript==
 
