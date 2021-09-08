@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         Open Links in Gmail
-// @namespace    https://wiki.gslin.org/wiki/Open_Links_in_Gmail
-// @version      0.20190515.0
-// @description  Open all matching links in Gmail using "i".
-// @author       Gea-Suan Lin <darkkiller@gmail.com>
-// @match        https://mail.google.com/*
+// @name         Press "g" to Google (DuckDuckGo)
+// @namespace    https://wiki.gslin.org/wiki/Google
+// @version      0.20210908.0
+// @description  Press "g" to Google in DuckDuckGo
+// @author       Gea-Suan Lin
+// @match        https://duckduckgo.com/*
 // @grant        GM_addStyle
 // @grant        GM_getValue
 // @grant        GM_openInTab
@@ -17,26 +17,29 @@
 (function() {
     'use strict';
 
-    let cfg = new MonkeyConfig({
+    const cfg = new MonkeyConfig({
         menuCommand: true,
         params: {
-            match_regex: {
+            search_engine: {
                 type: 'text',
-                default: '^https://github\.com/[^/]+/[^/]+/commit/',
+                default: 'https://www.google.com/search?q=',
             },
         },
-        title: 'Open Links in Gmail',
+        title: 'Press "g" to Google in DuckDuckGo',
     });
 
-    let match_regex = new RegExp(cfg.get('match_regex'));
-    window.addEventListener('keydown', ev => {
-        if ('i' === ev.key) {
-            for (let el of document.querySelectorAll('div[role="listitem"]:first-child a')) {
-                let href = el.getAttribute('href');
-                if (href.match(match_regex)) {
-                    GM_openInTab(href, true);
-                }
-            }
+    document.addEventListener('keyup', function(event) {
+        if ('input' === document.activeElement.tagName.toLowerCase()) {
+            return;
         }
+        if ('g' !== event.key) {
+            return;
+        }
+
+        let q = document.getElementById('search_form_input').value;
+        let q_encoded = encodeURIComponent(q).replace(/%20/g, '+');
+        let url = cfg.get('search_engine') + q_encoded;
+
+        document.location = url;
     });
 })();
