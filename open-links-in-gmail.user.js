@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Open Links in Gmail
 // @namespace    https://wiki.gslin.org/wiki/Open_Links_in_Gmail
-// @version      0.20190515.0
+// @version      0.20210910.0
 // @description  Open all matching links in Gmail using "i".
 // @author       Gea-Suan Lin <darkkiller@gmail.com>
 // @match        https://mail.google.com/*
